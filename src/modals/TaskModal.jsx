@@ -1,40 +1,40 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ElipsisMenu from "../components/ElipsisMenu";
-import elipsis from "../assets/icon-vertical-ellipsis.svg";
-import boardsSlice from "../redux/boardsSlice";
-import Subtask from "../components/Subtask";
-import AddEditTaskModal from "./AddEditTaskModal";
-import DeleteModal from "./DeleteModal";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import ElipsisMenu from "../components/ElipsisMenu"
+import elipsis from "../assets/icon-vertical-ellipsis.svg"
+import boardsSlice from "../redux/boardsSlice"
+import Subtask from "../components/Subtask"
+import AddEditTaskModal from "./AddEditTaskModal"
+import DeleteModal from "./DeleteModal"
 
 function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
-  const dispatch = useDispatch();
-  const [isElipsisMenuOpen, setIsElipsisMenuOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const columns = board.columns;
-  const col = columns.find((col, i) => i === colIndex);
-  const task = col.tasks.find((task, i) => i === taskIndex);
-  const subtasks = task.subtasks;
+  const dispatch = useDispatch()
+  const [isElipsisMenuOpen, setIsElipsisMenuOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const boards = useSelector((state) => state.boards)
+  const board = boards.find((board) => board.isActive === true)
+  const columns = board.columns
+  const col = columns.find((col, i) => i === colIndex)
+  const task = col.tasks.find((task, i) => i === taskIndex)
+  const subtasks = task.subtasks
 
-  let completed = 0;
+  let completed = 0
   subtasks.forEach((subtask) => {
     if (subtask.isCompleted) {
-      completed++;
+      completed++
     }
-  });
+  })
 
-  const [status, setStatus] = useState(task.status);
-  const [newColIndex, setNewColIndex] = useState(columns.indexOf(col));
+  const [status, setStatus] = useState(task.status)
+  const [newColIndex, setNewColIndex] = useState(columns.indexOf(col))
   const onChange = (e) => {
-    setStatus(e.target.value);
-    setNewColIndex(e.target.selectedIndex);
-  };
+    setStatus(e.target.value)
+    setNewColIndex(e.target.selectedIndex)
+  }
 
   const onClose = (e) => {
     if (e.target !== e.currentTarget) {
-      return;
+      return
     }
     dispatch(
       boardsSlice.actions.setTaskStatus({
@@ -43,31 +43,31 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
         newColIndex,
         status,
       })
-    );
-    setIsTaskModalOpen(false);
-  };
+    )
+    setIsTaskModalOpen(false)
+  }
 
   const onDeleteBtnClick = (e) => {
     if (e.target.textContent === "Delete") {
-      dispatch(boardsSlice.actions.deleteTask({ taskIndex, colIndex }));
-      setIsTaskModalOpen(false);
-      setIsDeleteModalOpen(false);
+      dispatch(boardsSlice.actions.deleteTask({ taskIndex, colIndex }))
+      setIsTaskModalOpen(false)
+      setIsDeleteModalOpen(false)
     } else {
-      setIsDeleteModalOpen(false);
+      setIsDeleteModalOpen(false)
     }
-  };
+  }
 
-  const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+  const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false)
 
   const setOpenEditModal = () => {
-    setIsAddTaskModalOpen(true);
-    setIsElipsisMenuOpen(false);
-  };
+    setIsAddTaskModalOpen(true)
+    setIsElipsisMenuOpen(false)
+  }
 
   const setOpenDeleteModal = () => {
-    setIsElipsisMenuOpen(false);
-    setIsDeleteModalOpen(true);
-  };
+    setIsElipsisMenuOpen(false)
+    setIsDeleteModalOpen(true)
+  }
 
   return (
     <div
@@ -82,7 +82,7 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
 
           <img
             onClick={() => {
-              setIsElipsisMenuOpen((prevState) => !prevState);
+              setIsElipsisMenuOpen((prevState) => !prevState)
             }}
             src={elipsis}
             alt="elipsis"
@@ -115,7 +115,7 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
                 colIndex={colIndex}
                 key={index}
               />
-            );
+            )
           })}
         </div>
 
@@ -156,7 +156,7 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default TaskModal;
+export default TaskModal

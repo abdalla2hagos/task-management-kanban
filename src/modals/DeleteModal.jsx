@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
   return (
@@ -6,9 +6,9 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
     <div
       onClick={(e) => {
         if (e.target !== e.currentTarget) {
-          return;
+          return
         }
-        setIsDeleteModalOpen(false);
+        setIsDeleteModalOpen(false)
       }}
       className="fixed right-0 top-0 px-2 py-4 overflow-scroll scrollbar-hide  z-50 left-0 bottom-0 justify-center items-center flex dropdown"
     >
@@ -48,7 +48,7 @@ function DeleteModal({ type, title, onDeleteBtnClick, setIsDeleteModalOpen }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default DeleteModal;
+export default DeleteModal

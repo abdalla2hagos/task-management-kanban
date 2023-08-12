@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import TaskModal from "../modals/TaskModal";
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
+import TaskModal from "../modals/TaskModal"
 
 function Task({ colIndex, taskIndex }) {
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const columns = board.columns;
-  const col = columns.find((col, i) => i === colIndex);
-  const task = col.tasks.find((task, i) => i === taskIndex);
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const boards = useSelector((state) => state.boards)
+  const board = boards.find((board) => board.isActive === true)
+  const columns = board.columns
+  const col = columns.find((col, i) => i === colIndex)
+  const task = col.tasks.find((task, i) => i === taskIndex)
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
-  let completed = 0;
-  let subtasks = task.subtasks;
+  let completed = 0
+  let subtasks = task.subtasks
   subtasks.forEach((subtask) => {
     if (subtask.isCompleted) {
-      completed++;
+      completed++
     }
-  });
+  })
 
   const handleOnDrag = (e) => {
     e.dataTransfer.setData(
       "text",
       JSON.stringify({ taskIndex, prevColIndex: colIndex })
-    );
-  };
+    )
+  }
 
   return (
     <div>
       <div
         onClick={() => {
-          setIsTaskModalOpen(true);
+          setIsTaskModalOpen(true)
         }}
         draggable
         onDragStart={handleOnDrag}
@@ -48,7 +48,7 @@ function Task({ colIndex, taskIndex }) {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default Task;
+export default Task

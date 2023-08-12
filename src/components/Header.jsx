@@ -1,52 +1,52 @@
-import React, { useState } from "react";
-import Logo from "../assets/logo-mobile.svg";
-import iconDown from "../assets/icon-chevron-down.svg";
-import iconUp from "../assets/icon-chevron-up.svg";
-import elipsis from "../assets/icon-vertical-ellipsis.svg";
-import HeaderDropDown from "./HeaderDropDown";
-import ElipsisMenu from "./ElipsisMenu";
-import AddEditTaskModal from "../modals/AddEditTaskModal";
-import AddEditBoardModal from "../modals/AddEditBoardModal";
-import { useDispatch, useSelector } from "react-redux";
-import DeleteModal from "../modals/DeleteModal";
-import boardsSlice from "../redux/boardsSlice";
+import React, { useState } from "react"
+import Logo from "../assets/logo-mobile.svg"
+import iconDown from "../assets/icon-chevron-down.svg"
+import iconUp from "../assets/icon-chevron-up.svg"
+import elipsis from "../assets/icon-vertical-ellipsis.svg"
+import HeaderDropDown from "./HeaderDropDown"
+import ElipsisMenu from "./ElipsisMenu"
+import AddEditTaskModal from "../modals/AddEditTaskModal"
+import AddEditBoardModal from "../modals/AddEditBoardModal"
+import { useDispatch, useSelector } from "react-redux"
+import DeleteModal from "../modals/DeleteModal"
+import boardsSlice from "../redux/boardsSlice"
 
 function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
-  const [openDropdown, setOpenDropdown] = useState(false);
-  const [isElipsisMenuOpen, setIsElipsisMenuOpen] = useState(false);
-  const [boardType, setBoardType] = useState("add");
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false)
+  const [isElipsisMenuOpen, setIsElipsisMenuOpen] = useState(false)
+  const [boardType, setBoardType] = useState("add")
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive);
+  const boards = useSelector((state) => state.boards)
+  const board = boards.find((board) => board.isActive)
 
   const onDropdownClick = () => {
-    setOpenDropdown((state) => !state);
-    setIsElipsisMenuOpen(false);
-    setBoardType("add");
-  };
+    setOpenDropdown((state) => !state)
+    setIsElipsisMenuOpen(false)
+    setBoardType("add")
+  }
 
   const setOpenEditModal = () => {
-    setIsBoardModalOpen(true);
-    setIsElipsisMenuOpen(false);
-  };
+    setIsBoardModalOpen(true)
+    setIsElipsisMenuOpen(false)
+  }
   const setOpenDeleteModal = () => {
-    setIsDeleteModalOpen(true);
-    setIsElipsisMenuOpen(false);
-  };
+    setIsDeleteModalOpen(true)
+    setIsElipsisMenuOpen(false)
+  }
 
   const onDeleteBtnClick = (e) => {
     if (e.target.textContent === "Delete") {
-      dispatch(boardsSlice.actions.deleteBoard());
-      dispatch(boardsSlice.actions.setBoardActive({ index: 0 }));
-      setIsDeleteModalOpen(false);
+      dispatch(boardsSlice.actions.deleteBoard())
+      dispatch(boardsSlice.actions.setBoardActive({ index: 0 }))
+      setIsDeleteModalOpen(false)
     } else {
-      setIsDeleteModalOpen(false);
+      setIsDeleteModalOpen(false)
     }
-  };
+  }
 
   return (
     <div className=" p-4 fixed left-0 bg-white dark:bg-[#2b2c37] z-50 right-0 ">
@@ -76,14 +76,14 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
           <button
             className=" button hidden md:block "
             onClick={() => {
-              setIsTaskModalOpen((prevState) => !prevState);
+              setIsTaskModalOpen((prevState) => !prevState)
             }}
           >
             + Add New Task
           </button>
           <button
             onClick={() => {
-              setIsTaskModalOpen((prevState) => !prevState);
+              setIsTaskModalOpen((prevState) => !prevState)
             }}
             className=" button py-1 px-3 md:hidden "
           >
@@ -92,9 +92,9 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
 
           <img
             onClick={() => {
-              setBoardType("edit");
+              setBoardType("edit")
               setOpenDropdown(false)
-              setIsElipsisMenuOpen((prevState) => !prevState);
+              setIsElipsisMenuOpen((prevState) => !prevState)
             }}
             src={elipsis}
             alt="elipsis"
@@ -140,7 +140,7 @@ function Header({ setIsBoardModalOpen, isBoardModalOpen }) {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

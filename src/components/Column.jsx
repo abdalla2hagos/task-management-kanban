@@ -1,8 +1,8 @@
-import { shuffle } from "lodash";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import boardsSlice from "../redux/boardsSlice";
-import Task from "./Task";
+import { shuffle } from "lodash"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import boardsSlice from "../redux/boardsSlice"
+import Task from "./Task"
 
 function Column({ colIndex }) {
   const colors = [
@@ -15,36 +15,36 @@ function Column({ colIndex }) {
     "bg-yellow-500",
     "bg-pink-500",
     "bg-sky-500",
-  ];
+  ]
 
   
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const [color, setColor] = useState(null)
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const col = board.columns.find((col, i) => i === colIndex);
+  const boards = useSelector((state) => state.boards)
+  const board = boards.find((board) => board.isActive === true)
+  const col = board.columns.find((col, i) => i === colIndex)
   useEffect(() => {
     setColor(shuffle(colors).pop())
-  }, [dispatch]);
+  }, [dispatch])
 
 
 
   const handleOnDrop = (e) => {
     const { prevColIndex, taskIndex } = JSON.parse(
       e.dataTransfer.getData("text")
-    );
+    )
 
     if (colIndex !== prevColIndex) {
       dispatch(
         boardsSlice.actions.dragTask({ colIndex, prevColIndex, taskIndex })
-      );
+      )
     }
-  };
+  }
 
   const handleOnDragOver = (e) => {
-    e.preventDefault();
-  };
+    e.preventDefault()
+  }
 
   return (
     <div
@@ -61,7 +61,7 @@ function Column({ colIndex }) {
         <Task key={index} taskIndex={index} colIndex={colIndex} />
       ))}
     </div>
-  );
+  )
 }
 
-export default Column;
+export default Column

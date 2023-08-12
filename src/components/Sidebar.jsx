@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Switch } from "@headlessui/react";
-import boardIcon from "../assets/icon-board.svg";
-import useDarkMode from "../hooks/useDarkMode";
-import darkIcon from "../assets/icon-dark-theme.svg";
-import lightIcon from "../assets/icon-light-theme.svg";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Switch } from "@headlessui/react"
+import boardIcon from "../assets/icon-board.svg"
+import useDarkMode from "../hooks/useDarkMode"
+import darkIcon from "../assets/icon-dark-theme.svg"
+import lightIcon from "../assets/icon-light-theme.svg"
 
-import showSidebarIcon from "../assets/icon-show-sidebar.svg";
-import hideSidebarIcon from "../assets/icon-hide-sidebar.svg";
+import showSidebarIcon from "../assets/icon-show-sidebar.svg"
+import hideSidebarIcon from "../assets/icon-hide-sidebar.svg"
 
-import boardsSlice from "../redux/boardsSlice";
-import AddEditBoardModal from "../modals/AddEditBoardModal";
+import boardsSlice from "../redux/boardsSlice"
+import AddEditBoardModal from "../modals/AddEditBoardModal"
 
 function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
-  const dispatch = useDispatch();
-  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
-  const [colorTheme, setTheme] = useDarkMode();
+  const dispatch = useDispatch()
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false)
+  const [colorTheme, setTheme] = useDarkMode()
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
-  );
+  )
 
   const toggleDarkMode = (checked) => {
-    setTheme(colorTheme);
-    setDarkSide(checked);
-  };
+    setTheme(colorTheme)
+    setDarkSide(checked)
+  }
 
-  const boards = useSelector((state) => state.boards);
+  const boards = useSelector((state) => state.boards)
 
   const toggleSidebar = () => {
-    setIsSideBarOpen((curr) => !curr);
-  };
+    setIsSideBarOpen((curr) => !curr)
+  }
 
   return (
     <div>
@@ -59,7 +59,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                       } `}
                       key={index}
                       onClick={() => {
-                        dispatch(boardsSlice.actions.setBoardActive({ index }));
+                        dispatch(boardsSlice.actions.setBoardActive({ index }))
                       }}
                     >
                       <img src={boardIcon} className="  filter-white  h-4 " />{" "}
@@ -70,7 +70,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                   <div
                     className=" flex  items-baseline space-x-2  mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
                     onClick={() => {
-                      setIsBoardModalOpen(true);
+                      setIsBoardModalOpen(true)
                     }}
                   >
                     <img src={boardIcon} className="   filter-white  h-4 " />
@@ -129,7 +129,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

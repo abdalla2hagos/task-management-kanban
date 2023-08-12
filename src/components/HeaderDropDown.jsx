@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Switch } from "@headlessui/react";
-import boardIcon from "../assets/icon-board.svg";
-import useDarkMode from "../hooks/useDarkMode";
-import darkIcon from "../assets/icon-dark-theme.svg";
-import lightIcon from "../assets/icon-light-theme.svg";
-import boardsSlice from "../redux/boardsSlice";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Switch } from "@headlessui/react"
+import boardIcon from "../assets/icon-board.svg"
+import useDarkMode from "../hooks/useDarkMode"
+import darkIcon from "../assets/icon-dark-theme.svg"
+import lightIcon from "../assets/icon-light-theme.svg"
+import boardsSlice from "../redux/boardsSlice"
 
 
 function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
   const dispatch = useDispatch()
-  const [colorTheme, setTheme] = useDarkMode();
+  const [colorTheme, setTheme] = useDarkMode()
   const [darkSide, setDarkSide] = useState(
     colorTheme === "light" ? true : false
-  );
+  )
 
   const toggleDarkMode = (checked) => {
-    setTheme(colorTheme);
-    setDarkSide(checked);
-  };
+    setTheme(colorTheme)
+    setDarkSide(checked)
+  }
 
-  const boards = useSelector((state) => state.boards);
+  const boards = useSelector((state) => state.boards)
 
   return (
     <div
       className=" py-10 px-6 absolute  left-0 right-0 bottom-[-100vh] top-16 dropdown "
       onClick={(e) => {
         if (e.target !== e.currentTarget) {
-          return;
+          return
         }
-        setOpenDropdown(false);
+        setOpenDropdown(false)
       }}
     >
       {/* DropDown Modal */}
@@ -48,7 +48,7 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
               } `}
               key={index}
               onClick={() => {
-                dispatch(boardsSlice.actions.setBoardActive({ index }));
+                dispatch(boardsSlice.actions.setBoardActive({ index }))
               }}
             >
               <img src={boardIcon} className="  filter-white  h-4 " />{" "}
@@ -58,7 +58,7 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
 
           <div 
           onClick={() => {
-            setIsBoardModalOpen(true);
+            setIsBoardModalOpen(true)
             setOpenDropdown(false)
           }}
           className=" flex items-baseline space-x-2  text-[#635fc7] px-5 py-4  ">
@@ -89,7 +89,7 @@ function HeaderDropDown({ setOpenDropdown, setIsBoardModalOpen }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default HeaderDropDown;
+export default HeaderDropDown

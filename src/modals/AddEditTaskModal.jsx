@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-import crossIcon from "../assets/icon-cross.svg";
-import boardsSlice from "../redux/boardsSlice";
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { v4 as uuidv4 } from "uuid"
+import crossIcon from "../assets/icon-cross.svg"
+import boardsSlice from "../redux/boardsSlice"
 
 function AddEditTaskModal({
   type,
@@ -12,67 +12,67 @@ function AddEditTaskModal({
   taskIndex,
   prevColIndex = 0,
 }) {
-  const dispatch = useDispatch();
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const [isValid, setIsValid] = useState(true);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const dispatch = useDispatch()
+  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const [isValid, setIsValid] = useState(true)
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
   const board = useSelector((state) => state.boards).find(
     (board) => board.isActive
-  );
+  )
 
-  const columns = board.columns;
-  const col = columns.find((col, index) => index === prevColIndex);
-  const task = col ? col.tasks.find((task, index) => index === taskIndex) : [];
-  const [status, setStatus] = useState(columns[prevColIndex].name);
-  const [newColIndex, setNewColIndex] = useState(prevColIndex);
+  const columns = board.columns
+  const col = columns.find((col, index) => index === prevColIndex)
+  const task = col ? col.tasks.find((task, index) => index === taskIndex) : []
+  const [status, setStatus] = useState(columns[prevColIndex].name)
+  const [newColIndex, setNewColIndex] = useState(prevColIndex)
   const [subtasks, setSubtasks] = useState([
     { title: "", isCompleted: false, id: uuidv4() },
     { title: "", isCompleted: false, id: uuidv4() },
-  ]);
+  ])
 
   const onChangeSubtasks = (id, newValue) => {
     setSubtasks((prevState) => {
-      const newState = [...prevState];
-      const subtask = newState.find((subtask) => subtask.id === id);
-      subtask.title = newValue;
-      return newState;
-    });
-  };
+      const newState = [...prevState]
+      const subtask = newState.find((subtask) => subtask.id === id)
+      subtask.title = newValue
+      return newState
+    })
+  }
 
   const onChangeStatus = (e) => {
-    setStatus(e.target.value);
-    setNewColIndex(e.target.selectedIndex);
-  };
+    setStatus(e.target.value)
+    setNewColIndex(e.target.selectedIndex)
+  }
 
   const validate = () => {
-    setIsValid(false);
+    setIsValid(false)
     if (!title.trim()) {
-      return false;
+      return false
     }
     for (let i = 0; i < subtasks.length; i++) {
       if (!subtasks[i].title.trim()) {
-        return false;
+        return false
       }
     }
-    setIsValid(true);
-    return true;
-  };
+    setIsValid(true)
+    return true
+  }
 
   if (type === "edit" && isFirstLoad) {
     setSubtasks(
       task.subtasks.map((subtask) => {
-        return { ...subtask, id: uuidv4() };
+        return { ...subtask, id: uuidv4() }
       })
-    );
-    setTitle(task.title);
-    setDescription(task.description);
-    setIsFirstLoad(false);
+    )
+    setTitle(task.title)
+    setDescription(task.description)
+    setIsFirstLoad(false)
   }
 
   const onDelete = (id) => {
-    setSubtasks((prevState) => prevState.filter((el) => el.id !== id));
-  };
+    setSubtasks((prevState) => prevState.filter((el) => el.id !== id))
+  }
 
   const onSubmit = (type) => {
     if (type === "add") {
@@ -84,7 +84,7 @@ function AddEditTaskModal({
           status,
           newColIndex,
         })
-      );
+      )
     } else {
       dispatch(
         boardsSlice.actions.editTask({
@@ -96,9 +96,9 @@ function AddEditTaskModal({
           prevColIndex,
           newColIndex,
         })
-      );
+      )
     }
-  };
+  }
 
   return (
     <div
@@ -109,9 +109,9 @@ function AddEditTaskModal({
       }
       onClick={(e) => {
         if (e.target !== e.currentTarget) {
-          return;
+          return
         }
-        setIsAddTaskModalOpen(false);
+        setIsAddTaskModalOpen(false)
       }}
     >
       {/* Modal Section */}
@@ -167,7 +167,7 @@ function AddEditTaskModal({
             <div key={index} className=" flex items-center w-full ">
               <input
                 onChange={(e) => {
-                  onChangeSubtasks(subtask.id, e.target.value);
+                  onChangeSubtasks(subtask.id, e.target.value)
                 }}
                 type="text"
                 value={subtask.title}
@@ -177,7 +177,7 @@ function AddEditTaskModal({
               <img
                 src={crossIcon}
                 onClick={() => {
-                  onDelete(subtask.id);
+                  onDelete(subtask.id)
                 }}
                 className=" m-4 cursor-pointer "
               />
@@ -190,7 +190,7 @@ function AddEditTaskModal({
               setSubtasks((state) => [
                 ...state,
                 { title: "", isCompleted: false, id: uuidv4() },
-              ]);
+              ])
             }}
           >
             + Add New Subtask
@@ -213,11 +213,11 @@ function AddEditTaskModal({
           </select>
           <button
             onClick={() => {
-              const isValid = validate();
+              const isValid = validate()
               if (isValid) {
-                onSubmit(type);
-                setIsAddTaskModalOpen(false);
-                type === "edit" && setIsTaskModalOpen(false);
+                onSubmit(type)
+                setIsAddTaskModalOpen(false)
+                type === "edit" && setIsTaskModalOpen(false)
               }
             }}
             className=" w-full items-center text-white bg-[#635fc7] py-2 rounded-full "
@@ -227,7 +227,7 @@ function AddEditTaskModal({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddEditTaskModal;
+export default AddEditTaskModal

@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import AddEditBoardModal from "../modals/AddEditBoardModal";
-import Column from "./Column";
-import EmptyBoard from "./EmptyBoard";
-import Sidebar from "./Sidebar";
+import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import AddEditBoardModal from "../modals/AddEditBoardModal"
+import Column from "./Column"
+import EmptyBoard from "./EmptyBoard"
+import Sidebar from "./Sidebar"
 
 function Home() {
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
-  ]);
+  ])
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
+      setWindowSize([window.innerWidth, window.innerHeight])
+    }
 
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener("resize", handleWindowResize)
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
+      window.removeEventListener("resize", handleWindowResize)
+    }
+  })
 
-  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false)
 
-  const boards = useSelector((state) => state.boards);
-  const board = boards.find((board) => board.isActive === true);
-  const columns = board.columns;
+  const boards = useSelector((state) => state.boards)
+  const board = boards.find((board) => board.isActive === true)
+  const columns = board.columns
 
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true)
 
   return (
     <div
@@ -57,7 +57,7 @@ function Home() {
           ))}
           <div
             onClick={() => {
-              setIsBoardModalOpen(true);
+              setIsBoardModalOpen(true)
             }}
             className=" h-screen dark:bg-[#2b2c3740] flex justify-center items-center font-bold text-2xl hover:text-[#635FC7] transition duration-300 cursor-pointer bg-[#E9EFFA] scrollbar-hide mb-2   mx-5 pt-[90px] min-w-[280px] text-[#828FA3] mt-[135px] rounded-lg "
           >
@@ -76,7 +76,7 @@ function Home() {
         />
       )}
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home
